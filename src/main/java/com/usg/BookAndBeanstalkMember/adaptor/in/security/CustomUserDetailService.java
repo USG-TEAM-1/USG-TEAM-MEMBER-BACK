@@ -1,5 +1,6 @@
 package com.usg.BookAndBeanstalkMember.adaptor.in.security;
 
+import com.usg.BookAndBeanstalkMember.application.usecases.FindOneMemberUseCase;
 import com.usg.BookAndBeanstalkMember.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
