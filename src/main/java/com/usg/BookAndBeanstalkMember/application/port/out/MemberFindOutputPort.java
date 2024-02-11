@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface MemberFindOutputPort {
 
-    Optional<Member> findOne(String userId);
+    Optional<Member> findOne(String email);
 }
