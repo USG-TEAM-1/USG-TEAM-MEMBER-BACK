@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/members")
 public class AuthorizationController {
 
     private final JoinMemberUseCase joinMemberUseCase;
