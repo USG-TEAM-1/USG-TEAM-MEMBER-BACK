@@ -36,7 +36,10 @@ public class AuthorizationController {
         try {
             String token = loginMemberUseCase.login(loginDto);
             System.out.println("생성된 token " + token);
-            return ResponseEntity.ok(token);
+            // JSON 형식으로 응답 데이터 생성
+            String jsonResponse = "{\"token\": \"" + token + "\"}";
+
+            return ResponseEntity.ok(jsonResponse);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
