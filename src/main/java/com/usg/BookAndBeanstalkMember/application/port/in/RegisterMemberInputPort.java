@@ -12,8 +12,8 @@ public class RegisterMemberInputPort implements JoinMemberUseCase {
     private final MemberJoinOutputPort memberJoinOutputPort;
 
     @Override
-    public void join(String userid, String pw) {
+    public void join(String email, String password, String nickname) {
 
-        memberJoinOutputPort.join(userid, pw);
+        memberJoinOutputPort.join(email, password, nickname);
     }
 }
