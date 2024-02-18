@@ -5,6 +5,7 @@ import com.usg.BookAndBeanstalkMember.application.port.out.MemberJoinOutputPort;
 import com.usg.BookAndBeanstalkMember.application.port.out.MemberKafkaOutPort;
 import com.usg.BookAndBeanstalkMember.application.usecases.JoinMemberUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -13,14 +14,15 @@ public class RegisterMemberInputPort implements JoinMemberUseCase {
 
     private final MemberJoinOutputPort memberJoinOutputPort;
     private final MemberKafkaOutPort memberKafkaOutPort;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void join(String userid, String pw) {
+    public void join(String email, String password, String nickname) {
 
-        Long savedMemberId = memberJoinOutputPort.join(userid, pw);
+        Long savedMemberId = memberJoinOutputPort.join(email, passwordEncoder.encode(password), nickname);
 
         // nickname 추가 예정
-        MemberPublishDTO memberPublishDTO = createMemberPublishDTO(savedMemberId, userid, null);
+        MemberPublishDTO memberPublishDTO = createMemberPublishDTO(savedMemberId, userid, nickname);
         memberKafkaOutPort.publishMember(memberPublishDTO);
     }
 
@@ -29,7 +31,7 @@ public class RegisterMemberInputPort implements JoinMemberUseCase {
                 .builder()
                 .memberId(memberId)
                 .email(email)
-//                .nickname()
+                .nickname(nickname)
                 .build();
     }
 }

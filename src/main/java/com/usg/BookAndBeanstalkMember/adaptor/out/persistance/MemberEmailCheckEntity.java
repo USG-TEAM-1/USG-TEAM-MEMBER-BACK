@@ -5,9 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MemberJoinEntity {
-
+public class MemberEmailCheckEntity {
     private String email;
-    private String password;
-    private String nickname;
 }
