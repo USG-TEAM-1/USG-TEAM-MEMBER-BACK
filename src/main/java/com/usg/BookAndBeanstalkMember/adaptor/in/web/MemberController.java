@@ -2,11 +2,9 @@ package com.usg.BookAndBeanstalkMember.adaptor.in.web;
 
 import com.usg.BookAndBeanstalkMember.adaptor.out.persistance.MemberEmailCheckEntity;
 import com.usg.BookAndBeanstalkMember.adaptor.out.persistance.MemberJoinEntity;
-import com.usg.BookAndBeanstalkMember.adaptor.out.persistance.MemberLoginEntity;
 import com.usg.BookAndBeanstalkMember.adaptor.out.persistance.MemberNicknameCheckEntity;
 import com.usg.BookAndBeanstalkMember.application.usecases.CheckMemberUseCase;
 import com.usg.BookAndBeanstalkMember.application.usecases.JoinMemberUseCase;
-import com.usg.BookAndBeanstalkMember.application.usecases.LoginMemberUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
 
     private final JoinMemberUseCase joinMemberUseCase;
-    private final LoginMemberUseCase loginMemberUseCase;
     private final CheckMemberUseCase checkMemberUseCase;
 
     @PostMapping("/join")
@@ -28,22 +25,6 @@ public class MemberController {
         try {
             joinMemberUseCase.join(dto.getEmail(), dto.getPassword(), dto.getNickname());
             return ResponseEntity.ok("join success");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody MemberLoginEntity loginDto) {
-        System.out.println("== controller 진입");
-        System.out.println(loginDto.getEmail() + " " + loginDto.getPassword());
-        try {
-            String token = loginMemberUseCase.login(loginDto);
-            System.out.println("생성된 token " + token);
-            // JSON 형식으로 응답 데이터 생성
-            String jsonResponse = "{\"token\": \"" + token + "\"}";
-
-            return ResponseEntity.ok(jsonResponse);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
