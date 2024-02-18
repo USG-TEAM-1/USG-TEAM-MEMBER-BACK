@@ -4,21 +4,17 @@ import com.usg.BookAndBeanstalkMember.application.port.out.MemberCheckOutputPort
 import com.usg.BookAndBeanstalkMember.application.port.out.MemberFindOutputPort;
 import com.usg.BookAndBeanstalkMember.application.port.out.MemberJoinOutputPort;
 import com.usg.BookAndBeanstalkMember.domain.Member;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class MemberRepository implements MemberFindOutputPort, MemberJoinOutputPort, MemberCheckOutputPort {
 
-    private final PasswordEncoder passwordEncoder;
     private final JpaMemberRepository repository;
-
-    public MemberRepository(PasswordEncoder passwordEncoder, JpaMemberRepository repository) {
-        this.passwordEncoder = passwordEncoder;
-        this.repository = repository;
-    }
 
     @Override
     public boolean existsByEmail(String email) {
@@ -38,7 +34,7 @@ public class MemberRepository implements MemberFindOutputPort, MemberJoinOutputP
 
     @Override
     public Long join(String email, String password, String nickname) {
-        Member member = Member.createUser(email, password, nickname, passwordEncoder);
+        Member member = Member.createUser(email, password, nickname);
         validateDuplicateMember(member);
         repository.save(member);
 

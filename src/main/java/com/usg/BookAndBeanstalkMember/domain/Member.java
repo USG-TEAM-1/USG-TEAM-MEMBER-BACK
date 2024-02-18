@@ -25,8 +25,8 @@ public class Member {
     private String nickname;
     private String roles;
 
-    public static Member createUser(String email, String pw, String nickname, PasswordEncoder passwordEncoder) {
-        return new Member(null, email, passwordEncoder.encode(pw), nickname, "USER");
+    public static Member createUser(String email, String pw, String nickname) {
+        return new Member(null, email, pw, nickname, "USER");
     }
 
     // ENUM으로 안하고 ,로 해서 구분해서 ROLE을 입력 -> 그걸 파싱!!
