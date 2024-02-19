@@ -24,7 +24,9 @@ public class MemberController {
     public ResponseEntity<String> join(@RequestBody MemberJoinEntity dto) {
         try {
             joinMemberUseCase.join(dto.getEmail(), dto.getPassword(), dto.getNickname());
-            return ResponseEntity.ok("join success");
+            // JSON 형식으로 응답 데이터 생성
+            String jsonResponse = "{\"status\":\"true\"}";
+            return ResponseEntity.ok(jsonResponse);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
