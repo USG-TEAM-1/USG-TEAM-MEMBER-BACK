@@ -21,8 +21,7 @@ public class RegisterMemberInputPort implements JoinMemberUseCase {
 
         Long savedMemberId = memberJoinOutputPort.join(email, passwordEncoder.encode(password), nickname);
 
-        // nickname 추가 예정
-        MemberPublishDTO memberPublishDTO = createMemberPublishDTO(savedMemberId, userid, nickname);
+        MemberPublishDTO memberPublishDTO = createMemberPublishDTO(savedMemberId, email, nickname);
         memberKafkaOutPort.publishMember(memberPublishDTO);
     }
 
