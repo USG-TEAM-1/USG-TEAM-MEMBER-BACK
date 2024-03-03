@@ -31,7 +31,7 @@ public class SpringSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequest -> authorizeRequest
-                        .requestMatchers(HttpMethod.POST, "/members/login", "/members/join", "/members/email", "/members/nickname").permitAll()
+                        .requestMatchers(HttpMethod.POST, "34.64.110.152", "34.64.110.152:8080", "/members/login", "/members/join", "/members/email", "/members/nickname").permitAll()
                         .anyRequest().authenticated()
                 );
         http
